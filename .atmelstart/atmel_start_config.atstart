@@ -1137,10 +1137,10 @@ drivers:
     functionality: System
     api: HAL:HPL:GCLK
     configuration:
-      $input: 120000000
-      $input_id: Digital Phase Locked Loop (DPLL0)
-      RESERVED_InputFreq: 120000000
-      RESERVED_InputFreq_id: Digital Phase Locked Loop (DPLL0)
+      $input: 12000000
+      $input_id: External Crystal Oscillator 8-48MHz (XOSC1)
+      RESERVED_InputFreq: 12000000
+      RESERVED_InputFreq_id: External Crystal Oscillator 8-48MHz (XOSC1)
       _$freq_output_Generic clock generator 0: 120000000
       _$freq_output_Generic clock generator 1: 24000000
       _$freq_output_Generic clock generator 10: 12000000
@@ -1196,7 +1196,7 @@ drivers:
       gclk_arch_gen_1_idc: false
       gclk_arch_gen_1_oe: false
       gclk_arch_gen_1_oov: false
-      gclk_arch_gen_1_runstdby: false
+      gclk_arch_gen_1_runstdby: true
       gclk_arch_gen_2_enable: true
       gclk_arch_gen_2_idc: false
       gclk_arch_gen_2_oe: false
@@ -1206,7 +1206,7 @@ drivers:
       gclk_arch_gen_3_idc: false
       gclk_arch_gen_3_oe: false
       gclk_arch_gen_3_oov: false
-      gclk_arch_gen_3_runstdby: false
+      gclk_arch_gen_3_runstdby: true
       gclk_arch_gen_4_enable: false
       gclk_arch_gen_4_idc: false
       gclk_arch_gen_4_oe: false
@@ -1294,7 +1294,7 @@ drivers:
       mclk_arch_bupdiv: Divide by 8
       mclk_arch_hsdiv: Divide by 1
       mclk_arch_lpdiv: Divide by 4
-      nvm_wait_states: '0'
+      nvm_wait_states: '2'
     optional_signals: []
     variant: null
     clocks:
@@ -1344,9 +1344,9 @@ drivers:
     functionality: System
     api: HAL:HPL:OSCCTRL
     configuration:
-      $input: 1000000
+      $input: 12000000
       $input_id: Generic clock generator 2
-      RESERVED_InputFreq: 1000000
+      RESERVED_InputFreq: 12000000
       RESERVED_InputFreq_id: Generic clock generator 2
       _$freq_output_Digital Frequency Locked Loop (DFLL48M): 48000000
       _$freq_output_Digital Phase Locked Loop (DPLL0): 120000000
@@ -1422,7 +1422,7 @@ drivers:
       xosc1_arch_runstdby: true
       xosc1_arch_startup: 31us
       xosc1_arch_swben: false
-      xosc1_arch_xtalen: true
+      xosc1_arch_xtalen: false
       xosc1_frequency: 12000000
     optional_signals: []
     variant: null
@@ -1620,7 +1620,7 @@ drivers:
       domain_group:
         nodes:
         - name: Core
-          input: Generic clock generator 3
+          input: Generic clock generator 0
           external: false
           external_frequency: 0
         - name: Slow
@@ -1628,7 +1628,7 @@ drivers:
           external: false
           external_frequency: 0
         configuration:
-          core_gclk_selection: Generic clock generator 3
+          core_gclk_selection: Generic clock generator 0
           slow_gclk_selection: Generic clock generator 2
   PCC_SCCB:
     user_label: PCC_SCCB
@@ -1722,27 +1722,27 @@ drivers:
       tcc_arch_mceo5: false
       tcc_arch_ovfeo: false
       tcc_arch_prescsync: Reload or reset counter on next GCLK
-      tcc_arch_runstdby: false
-      tcc_arch_sel_ch: 2
+      tcc_arch_runstdby: true
+      tcc_arch_sel_ch: 4
       tcc_arch_tcei0: false
       tcc_arch_tcei1: false
       tcc_arch_tceinv0: false
       tcc_arch_tceinv1: false
       tcc_arch_trgeo: false
-      tcc_arch_wave_duty_val: 500
-      tcc_arch_wave_per_val: 1000
+      tcc_arch_wave_duty_val: 8
+      tcc_arch_wave_per_val: 16
       tcc_arch_wavegen: Single-slope PWM
       tcc_per: 10000
-      tcc_prescaler: No division
+      tcc_prescaler: Divide by 2
       timer_event_control: false
     optional_signals:
-    - identifier: PWM_0:WO/2
-      pad: PB14
+    - identifier: PWM_0:WO/4
+      pad: PD11
       mode: PWM output
       configuration: null
-      definition: Atmel:SAME54_Drivers:0.0.1::SAME54P20A-AU::optional_signal_definition::TCC0.WO.2
-      name: TCC0/WO/2
-      label: WO/2
+      definition: Atmel:SAME54_Drivers:0.0.1::SAME54P20A-AU::optional_signal_definition::TCC0.WO.4
+      name: TCC0/WO/4
+      label: WO/4
     variant: null
     clocks:
       domain_group:
@@ -1754,12 +1754,6 @@ drivers:
         configuration:
           tcc_gclk_selection: Generic clock generator 0
 pads:
-  PB14:
-    name: PB14
-    definition: Atmel:SAME54_Drivers:0.0.1::SAME54P20A-AU::pad::PB14
-    mode: Peripheral IO
-    user_label: PB14
-    configuration: null
   PCC_SCCB_SDA:
     name: PD08
     definition: Atmel:SAME54_Drivers:0.0.1::SAME54P20A-AU::pad::PD08
@@ -1771,6 +1765,12 @@ pads:
     definition: Atmel:SAME54_Drivers:0.0.1::SAME54P20A-AU::pad::PD09
     mode: I2C
     user_label: PCC_SCCB_SCL
+    configuration: null
+  PD11:
+    name: PD11
+    definition: Atmel:SAME54_Drivers:0.0.1::SAME54P20A-AU::pad::PD11
+    mode: Peripheral IO
+    user_label: PD11
     configuration: null
   PC11:
     name: PC11

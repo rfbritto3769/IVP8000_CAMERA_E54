@@ -63,7 +63,7 @@
 //<o> DMA Frame size <1-2000000>
 //<i> Defines DMA transfer frame size
 //<id> pcc_dma_frame_size
-#define CONF_PCC_DMA_FRAME_SIZE 38400
+#define CONF_PCC_DMA_FRAME_SIZE		38400     //(320*240/2)
 // </h>
 
 // <<< end of configuration section >>>

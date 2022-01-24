@@ -27,7 +27,7 @@ static union data
 	
 }CAMERA_OV7670_frame_buf;
 
-
+static uint32_t Index;
 
 uint32_t flag_frame_captured = 0;
 struct io_descriptor *PCC_SCCB_io;
@@ -47,7 +47,7 @@ void pcc_write_reg (uint8_t addr, uint8_t dat)
 
 static void ext_irq_cb_PCC_VSYNC(void)
 {
-	//sync_britto=1;
+	
 	//Do Nothing
 //	asm ("nop");
 }
@@ -71,10 +71,11 @@ void config_sensor_ov7670(void)
 	io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 1);
 	io_read(&PCC_SCCB.io, &recv_vid, 1);
 
+	delay_ms(10);
 	PCC_SCCB_Buffer[0] = OV7670_CHIPID_LOW;
 	io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 1);
 	io_read(&PCC_SCCB.io, &recv_pid, 1);
-
+	delay_ms(10);
 	if(OV7670_CHIPID_VID == recv_vid && OV7670_CHIPID_PID == recv_pid)
 	{
 		#ifdef CAMERA_0_TEST
@@ -88,81 +89,62 @@ void config_sensor_ov7670(void)
 		#endif
 		while(1);
 	}
-
+	
 	PCC_SCCB_Buffer[0] = 0x0C;
 	PCC_SCCB_Buffer[1] = 0x08;
 	io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
+	
 	PCC_SCCB_Buffer[0] = 0x12;
 	PCC_SCCB_Buffer[1] = 0x14;
 	io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
+	
 	PCC_SCCB_Buffer[0] = 0x15;
 	PCC_SCCB_Buffer[1] = 0x02;
 	io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
+	
 	PCC_SCCB_Buffer[0] = 0x40;
 	PCC_SCCB_Buffer[1] = 0xD0;
 	io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
+	
 	PCC_SCCB_Buffer[0] = 0x1E;
 	PCC_SCCB_Buffer[1] = 0x31;
 	io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
+	
 	PCC_SCCB_Buffer[0] = 0x3A;
 	PCC_SCCB_Buffer[1] = 0x0C;
 	io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
+	
 	PCC_SCCB_Buffer[0] = 0x3E;
 	PCC_SCCB_Buffer[1] = 0x19;
 	io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
+	
 	PCC_SCCB_Buffer[0] = 0x73;
 	PCC_SCCB_Buffer[1] = 0xF1;
 	io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
+	
 	PCC_SCCB_Buffer[0] = 0x17;
 	PCC_SCCB_Buffer[1] = 0x0B;
 	io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
+	
 	PCC_SCCB_Buffer[0] = 0x32;
 	PCC_SCCB_Buffer[1] = 0x80;
 	io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+
 	
 }
 
-
-static void capture_cb(struct camera_async_descriptor *const descr, uint32_t ch)
-{
-	uint32_t Index=0;
-	if (ch == 0) {
-		// Application can process data in frame_buf.
-		camera_async_capture_start(&CAMERA_OV7670, 0, CAMERA_OV7670_frame_buf.hword);
-		flag_teste=1;
-	}
-// 			for(Index = 0; Index < 153600; Index++)
-// 			{
-// 				while(_usart_async_is_byte_sent(&EDBG_COM.device) == 0);
-// 				_usart_async_write_byte(&EDBG_COM.device, CAMERA_OV7670_frame_buf.byte[Index]);
-// 				delay_us(10);
-// 			}
-}
-
-
 int main(void)
 {
-
-	uint32_t Index;
+	
 	/* Initializes MCU, drivers and middleware */
 	atmel_start_init();
 	
 	usart_async_enable(&EDBG_COM);
-
- 	pwm_set_parameters(&PWM_0, 8,4);
-	 
- 	pwm_enable(&PWM_0);	
 	
-
+ 	pwm_set_parameters(&PWM_0, 4,2);
+ 
+ 	pwm_enable(&PWM_0);		
+	
 #ifdef EDBG_TEST
 	while(1)
 	{
@@ -173,23 +155,21 @@ int main(void)
 		}
 	}
 #endif
-		memset(CAMERA_OV7670_frame_buf.hword,0xff,sizeof(CAMERA_OV7670_frame_buf.hword));
-		config_sensor_ov7670();
-		//camera_async_register_callback(&CAMERA_OV7670, capture_cb);
+		memset(CAMERA_OV7670_frame_buf.hword,0x30,sizeof(CAMERA_OV7670_frame_buf.hword));
+  		config_sensor_ov7670();
 		ext_irq_register(PCC_VSYNC, ext_irq_cb_PCC_VSYNC);
+  		
+ 		while(gpio_get_pin_level(PCC_VSYNC) == 0);
+ 		while(gpio_get_pin_level(PCC_VSYNC) != 0);
+ 		camera_async_enable(&CAMERA_OV7670);
+ 		camera_async_capture_start(&CAMERA_OV7670, 0, (uint32_t *) &CAMERA_OV7670_frame_buf.hword[0]);
+
 		
-		while(gpio_get_pin_level(PCC_VSYNC) == 0);
-		while(gpio_get_pin_level(PCC_VSYNC) != 0);
-		camera_async_enable(&CAMERA_OV7670);
-		camera_async_capture_start(&CAMERA_OV7670, 0, (uint32_t *) &CAMERA_OV7670_frame_buf.hword[0]);
-// 		while(flag_teste==0);
-// 		flag_teste=0;
-		
-		flag_frame_captured = 0;
-		while(flag_frame_captured == 0);
-		camera_async_disable(&CAMERA_OV7670);
-		ext_irq_disable(PCC_VSYNC);
-		
+ 		flag_frame_captured = 0;
+ 		while(flag_frame_captured == 0);
+ 		camera_async_disable(&CAMERA_OV7670);
+ 		ext_irq_disable(PCC_VSYNC);
+//	    memset(CAMERA_OV7670_frame_buf.hword,0x30,sizeof(CAMERA_OV7670_frame_buf.hword));
 		for(Index = 0; Index < 153600; Index++)		
 		{
 			while(_usart_async_is_byte_sent(&EDBG_COM.device) == 0);

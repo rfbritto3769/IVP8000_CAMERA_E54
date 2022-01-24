@@ -26,36 +26,36 @@ struct pwm_descriptor PWM_0;
 
 void EXTERNAL_IRQ_0_init(void)
 {
-hri_gclk_write_PCHCTRL_reg(GCLK, EIC_GCLK_ID, CONF_GCLK_EIC_SRC | (1 << GCLK_PCHCTRL_CHEN_Pos));
-hri_mclk_set_APBAMASK_EIC_bit(MCLK);
+	hri_gclk_write_PCHCTRL_reg(GCLK, EIC_GCLK_ID, CONF_GCLK_EIC_SRC | (1 << GCLK_PCHCTRL_CHEN_Pos));
+	hri_mclk_set_APBAMASK_EIC_bit(MCLK);
 
-ext_irq_init();
+	// Set pin direction to input
+	gpio_set_pin_direction(PCC_VSYNC, GPIO_DIRECTION_IN);
 
-// Set pin direction to input
-gpio_set_pin_direction(PCC_VSYNC, GPIO_DIRECTION_IN);
+	gpio_set_pin_pull_mode(PCC_VSYNC,
+	                       // <y> Pull configuration
+	                       // <id> pad_pull_config
+	                       // <GPIO_PULL_OFF"> Off
+	                       // <GPIO_PULL_UP"> Pull-up
+	                       // <GPIO_PULL_DOWN"> Pull-down
+	                       GPIO_PULL_UP);
 
-gpio_set_pin_pull_mode(PCC_VSYNC,
-// <y> Pull configuration
-// <id> pad_pull_config
-// <GPIO_PULL_OFF"> Off
-// <GPIO_PULL_UP"> Pull-up
-// <GPIO_PULL_DOWN"> Pull-down
-GPIO_PULL_OFF);
+	gpio_set_pin_function(PCC_VSYNC, PINMUX_PA12A_EIC_EXTINT12);
 
-gpio_set_pin_function(PCC_VSYNC, PINMUX_PA12A_EIC_EXTINT12);
+	// Set pin direction to input
+	gpio_set_pin_direction(PCC_HSYNC, GPIO_DIRECTION_IN);
 
-// Set pin direction to input
-gpio_set_pin_direction(PCC_HSYNC, GPIO_DIRECTION_IN);
+	gpio_set_pin_pull_mode(PCC_HSYNC,
+	                       // <y> Pull configuration
+	                       // <id> pad_pull_config
+	                       // <GPIO_PULL_OFF"> Off
+	                       // <GPIO_PULL_UP"> Pull-up
+	                       // <GPIO_PULL_DOWN"> Pull-down
+	                       GPIO_PULL_OFF);
 
-gpio_set_pin_pull_mode(PCC_HSYNC,
-// <y> Pull configuration
-// <id> pad_pull_config
-// <GPIO_PULL_OFF"> Off
-// <GPIO_PULL_UP"> Pull-up
-// <GPIO_PULL_DOWN"> Pull-down
-GPIO_PULL_OFF);
+	gpio_set_pin_function(PCC_HSYNC, PINMUX_PA13A_EIC_EXTINT13);
 
-gpio_set_pin_function(PCC_HSYNC, PINMUX_PA13A_EIC_EXTINT13);
+	ext_irq_init();
 }
 
 void EVENT_SYSTEM_0_init(void)
@@ -63,6 +63,7 @@ void EVENT_SYSTEM_0_init(void)
 	hri_gclk_write_PCHCTRL_reg(GCLK, EVSYS_GCLK_ID_1, CONF_GCLK_EVSYS_CHANNEL_1_SRC | (1 << GCLK_PCHCTRL_CHEN_Pos));
 
 	hri_mclk_set_APBBMASK_EVSYS_bit(MCLK);
+
 	event_system_init();
 }
 
@@ -186,7 +187,7 @@ void delay_driver_init(void)
 void PWM_0_PORT_init(void)
 {
 
-	gpio_set_pin_function(PB14, PINMUX_PB14G_TCC0_WO2);
+	gpio_set_pin_function(PD11, PINMUX_PD11F_TCC0_WO4);
 }
 
 void PWM_0_CLOCK_init(void)
@@ -205,9 +206,7 @@ void PWM_0_init(void)
 
 void system_init(void)
 {
-
 	init_mcu();
-
 
 	// GPIO on PC11
 

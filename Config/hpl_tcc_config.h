@@ -26,7 +26,7 @@
 // <i> This defines the TCC0 prescaler value
 // <id> tcc_prescaler
 #ifndef CONF_TCC0_PRESCALER
-#define CONF_TCC0_PRESCALER TCC_CTRLA_PRESCALER_DIV1_Val
+#define CONF_TCC0_PRESCALER TCC_CTRLA_PRESCALER_DIV2_Val
 #endif
 
 // <hidden>
@@ -44,14 +44,14 @@
 // <i> The unit of this value is us.
 // <id> tcc_arch_wave_per_val
 #ifndef CONF_TCC0_WAVE_PER_VAL
-#define CONF_TCC0_WAVE_PER_VAL 0x3e8
+#define CONF_TCC0_WAVE_PER_VAL 0x10
 #endif
 
 // <o> TCC0 Waveform Duty Value (0.1%) <0x00-0x03E8>
 // <i> The unit of this value is 1/1000.
 // <id> tcc_arch_wave_duty_val
 #ifndef CONF_TCC0_WAVE_DUTY_VAL
-#define CONF_TCC0_WAVE_DUTY_VAL 0x1f4
+#define CONF_TCC0_WAVE_DUTY_VAL 0x8
 #endif
 
 // <o> TCC0 Waveform Channel Select <0x00-0x05>
@@ -59,7 +59,7 @@
 // <i> Give index of the Compare Channel register here in 0x00-0x05 range.
 // <id> tcc_arch_sel_ch
 #ifndef CONF_TCC0_SEL_CH
-#define CONF_TCC0_SEL_CH 0x2
+#define CONF_TCC0_SEL_CH 0x4
 #endif
 
 /* Caculate pwm ccx register value based on WAVE_PER_VAL and Waveform Duty Value */
@@ -90,7 +90,7 @@
 // <i> Indicates whether the TCC0 will continue running in standby sleep mode or not
 // <id> tcc_arch_runstdby
 #ifndef CONF_TCC0_RUNSTDBY
-#define CONF_TCC0_RUNSTDBY 0
+#define CONF_TCC0_RUNSTDBY 1
 #endif
 
 // <y> TCC0 Prescaler and Counter Synchronization Selection

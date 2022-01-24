@@ -253,7 +253,7 @@
 // <i> Select the clock source
 // <id> dfll_ref_clock
 #ifndef CONF_DFLL_GCLK
-#define CONF_DFLL_GCLK GCLK_PCHCTRL_GEN_GCLK3_Val
+#define CONF_DFLL_GCLK GCLK_PCHCTRL_GEN_GCLK2_Val
 #endif
 
 // <h> Digital Frequency Locked Loop Control
@@ -275,7 +275,7 @@
 // <i> Indicates whether Run in Standby is enabled or not
 // <id> dfll_arch_runstdby
 #ifndef CONF_DFLL_RUNSTDBY
-#define CONF_DFLL_RUNSTDBY 0
+#define CONF_DFLL_RUNSTDBY 1
 #endif
 
 // <q> USB Clock Recovery Mode
@@ -289,7 +289,7 @@
 // <i> Indicates whether Wait Lock is enabled or not
 // <id> dfll_arch_waitlock
 #ifndef CONF_DFLL_WAITLOCK
-#define CONF_DFLL_WAITLOCK 1
+#define CONF_DFLL_WAITLOCK 0
 #endif
 
 // <q> Bypass Coarse Lock
@@ -332,7 +332,7 @@
 // <1=>Closed Loop Mode
 // <id> dfll_mode
 #ifndef CONF_DFLL_MODE
-#define CONF_DFLL_MODE 0x0
+#define CONF_DFLL_MODE 0x1
 #endif
 
 // <o> Coarse Maximum Step <0x0-0x1F>
@@ -350,7 +350,7 @@
 // <o> DFLL Multiply Factor <0x0-0xFFFF>
 //  <id> dfll_mul
 #ifndef CONF_DFLL_MUL
-#define CONF_DFLL_MUL 0x0
+#define CONF_DFLL_MUL 0x5b9
 #endif
 
 // <e> DFLL Calibration Overwrite
@@ -430,21 +430,18 @@
 #endif
 
 // <o> Loop Divider Ratio Fractional Part <0x0-0x1F>
-// <i> Value of LDRFRAC is calculated using Fclk_dpll=Fckr*(LDR+1+LDRFRAC/32) formula as given in datasheet. This value is directly written in to DPLLRATIO register
 // <id> fdpll0_ldrfrac
 #ifndef CONF_FDPLL0_LDRFRAC
 #define CONF_FDPLL0_LDRFRAC 0x0
 #endif
 
 // <o> Loop Divider Ratio Integer Part <0x0-0x1FFF>
-// <i> Value of LDR is calculated using Fclk_dpll=Fckr*(LDR+1+LDRFRAC/32) formula as given in datasheet. This value is directly written in to DPLLRATIO register
 // <id> fdpll0_ldr
 #ifndef CONF_FDPLL0_LDR
 #define CONF_FDPLL0_LDR 0x77
 #endif
 
 // <o> Clock Divider <0x0-0x7FF>
-// <i> This Clock divider is only for XOSC clock input to DPLL
 // <id> fdpll0_clock_div
 #ifndef CONF_FDPLL0_DIV
 #define CONF_FDPLL0_DIV 0x1
@@ -558,21 +555,18 @@
 #endif
 
 // <o> Loop Divider Ratio Fractional Part <0x0-0x1F>
-// <i> Value of LDRFRAC is calculated using Fclk_dpll=Fckr*(LDR+1+LDRFRAC/32) formula as given in datasheet. This value is directly written in to DPLLRATIO register
 // <id> fdpll1_ldrfrac
 #ifndef CONF_FDPLL1_LDRFRAC
 #define CONF_FDPLL1_LDRFRAC 0x0
 #endif
 
 // <o> Loop Divider Ratio Integer Part <0x0-0x1FFF>
-// <i> Value of LDR is calculated using Fclk_dpll=Fckr*(LDR+1+LDRFRAC/32) formula as given in datasheet. This value is directly written in to DPLLRATIO register
 // <id> fdpll1_ldr
 #ifndef CONF_FDPLL1_LDR
 #define CONF_FDPLL1_LDR 0x2f
 #endif
 
 // <o> Clock Divider <0x0-0x7FF>
-// <i> This Clock divider is only for XOSC clock input to DPLL
 // <id> fdpll1_clock_div
 #ifndef CONF_FDPLL1_DIV
 #define CONF_FDPLL1_DIV 0x0
