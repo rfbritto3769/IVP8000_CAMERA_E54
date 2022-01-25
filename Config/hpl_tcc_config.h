@@ -26,7 +26,7 @@
 // <i> This defines the TCC0 prescaler value
 // <id> tcc_prescaler
 #ifndef CONF_TCC0_PRESCALER
-#define CONF_TCC0_PRESCALER TCC_CTRLA_PRESCALER_DIV2_Val
+#define CONF_TCC0_PRESCALER TCC_CTRLA_PRESCALER_DIV1_Val
 #endif
 
 // <hidden>

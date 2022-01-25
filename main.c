@@ -27,15 +27,13 @@ static union data
 	
 }CAMERA_OV7670_frame_buf;
 
-static uint32_t Index;
+uint32_t Index;
 
 uint32_t flag_frame_captured = 0;
 struct io_descriptor *PCC_SCCB_io;
 
 
 uint8_t flag_teste;
-
-//uint8_t sync_britto=0;
 
 void pcc_write_reg (uint8_t addr, uint8_t dat)
 {
@@ -87,7 +85,7 @@ void config_sensor_ov7670(void)
 		#ifdef CAMERA_0_TEST
 		io_write(&EDBG_COM.io, Display_Invalid_VID_PID, sizeof(Display_Invalid_VID_PID));
 		#endif
-		while(1);
+		////while(1);
 	}
 	
 	PCC_SCCB_Buffer[0] = 0x0C;
@@ -138,12 +136,13 @@ int main(void)
 	
 	/* Initializes MCU, drivers and middleware */
 	atmel_start_init();
-	
+	gpio_set_pin_level(PCC_RESET, false);
 	usart_async_enable(&EDBG_COM);
 	
- 	pwm_set_parameters(&PWM_0, 4,2);
+ 	pwm_set_parameters(&PWM_0,22,11);
  
- 	pwm_enable(&PWM_0);		
+ 	pwm_enable(&PWM_0);	
+	
 	
 #ifdef EDBG_TEST
 	while(1)
@@ -155,8 +154,8 @@ int main(void)
 		}
 	}
 #endif
-		memset(CAMERA_OV7670_frame_buf.hword,0x30,sizeof(CAMERA_OV7670_frame_buf.hword));
-  		config_sensor_ov7670();
+	//	memset(CAMERA_OV7670_frame_buf.hword,0x30,sizeof(CAMERA_OV7670_frame_buf.hword));
+    	config_sensor_ov7670();
 		ext_irq_register(PCC_VSYNC, ext_irq_cb_PCC_VSYNC);
   		
  		while(gpio_get_pin_level(PCC_VSYNC) == 0);
@@ -169,7 +168,7 @@ int main(void)
  		while(flag_frame_captured == 0);
  		camera_async_disable(&CAMERA_OV7670);
  		ext_irq_disable(PCC_VSYNC);
-//	    memset(CAMERA_OV7670_frame_buf.hword,0x30,sizeof(CAMERA_OV7670_frame_buf.hword));
+	  //  memset(CAMERA_OV7670_frame_buf.hword,0x30,sizeof(CAMERA_OV7670_frame_buf.hword));
 		for(Index = 0; Index < 153600; Index++)		
 		{
 			while(_usart_async_is_byte_sent(&EDBG_COM.device) == 0);
