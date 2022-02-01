@@ -59,9 +59,9 @@
 
 // <o> Baud rate <1-6250000>
 // <i> USART baud rate setting
-// <id> usart_baud_rate
+// <id> usart_baud_rate 
 #ifndef CONF_SERCOM_1_USART_BAUD
-#define CONF_SERCOM_1_USART_BAUD 115200
+#define CONF_SERCOM_1_USART_BAUD 1000000
 #endif
 
 // </h>
