@@ -86,161 +86,155 @@ void config_sensor_ov7670(void)
 	if(OV7670_CHIPID_VID == recv_vid && OV7670_CHIPID_PID == recv_pid)
 	{
 		#ifdef CAMERA_0_TEST
-		io_write(&EDBG_COM.io, Display_Valid_VID_PID, sizeof(Display_Valid_VID_PID));
+	//	io_write(&EDBG_COM.io, Display_Valid_VID_PID, sizeof(Display_Valid_VID_PID));
 		#endif
 	}
 	else
 	{
 		#ifdef CAMERA_0_TEST
-		io_write(&EDBG_COM.io, Display_Invalid_VID_PID, sizeof(Display_Invalid_VID_PID));
+	//	io_write(&EDBG_COM.io, Display_Invalid_VID_PID, sizeof(Display_Invalid_VID_PID));
 		#endif
 		while(1);
 	}
-	
-
-
-	
+		
 // 	PCC_SCCB_Buffer[0] = 0x12;
 // 	PCC_SCCB_Buffer[1] = 0x80;//08
 // 	io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-// 	delay_ms(100);
+////	delay_ms(500);
 	///////////////////////////////////////////////////
 	
-// 		PCC_SCCB_Buffer[0] = 0x0C;
-// 		PCC_SCCB_Buffer[1] = 0x04;//08
-// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-// 		
-// 	
-// 		
-// 		PCC_SCCB_Buffer[0] = 0x12;
-// 		PCC_SCCB_Buffer[1] = 0x00;//14
-// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-// 		
-// 		PCC_SCCB_Buffer[0] = 0x11;
-// 		PCC_SCCB_Buffer[1] = 0x01;
-// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-// 	
-// 		
-// 		PCC_SCCB_Buffer[0] = 0x15;
-// 		PCC_SCCB_Buffer[1] = 0x03;//02  03
-// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-// 		
-// 	
-// 		
-// 		PCC_SCCB_Buffer[0] = 0x40;
-// 		PCC_SCCB_Buffer[1] = 0xD0;
-// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-// 		
-// 	
-// 		
-// 		PCC_SCCB_Buffer[0] = 0x1E;
-// 		PCC_SCCB_Buffer[1] = 0x01;//31  01
-// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-// 		
-// 	
-// 		
-// 		PCC_SCCB_Buffer[0] = 0x3A;
-// 		PCC_SCCB_Buffer[1] = 0x0C;
-// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-// 		
-// 	
-// 		
-// 		PCC_SCCB_Buffer[0] = 0x3E;
-// 		PCC_SCCB_Buffer[1] = 0x19; //19
-// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-// 		
-// 	
-// 		
-// 		PCC_SCCB_Buffer[0] = 0x73;
-// 		PCC_SCCB_Buffer[1] = 0xF1;
-// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-// 	
-// 		PCC_SCCB_Buffer[0] = 0xa2;
-// 		PCC_SCCB_Buffer[1] = 0x02;
-// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-// 			
-// 		PCC_SCCB_Buffer[0] = 0x17;
-// 		PCC_SCCB_Buffer[1] = 0x16;//0x0b  16
-// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-// 		
-// 		PCC_SCCB_Buffer[0] = 0x70;
-// 		PCC_SCCB_Buffer[1] = 0x3a;
-// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-// 		
-// 		PCC_SCCB_Buffer[0] = 0x71;
-// 		PCC_SCCB_Buffer[1] = 0x35;
-// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-// 		
-// 		PCC_SCCB_Buffer[0] = 0x72;
-// 		PCC_SCCB_Buffer[1] = 0x11;
-// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-// 		
-// 		
-// 		PCC_SCCB_Buffer[0] = 0x32;
-// 		PCC_SCCB_Buffer[1] = 0x24;//80  24
-// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-// 		
-	//////////////////////////////////////////////////////////////////////////
 		PCC_SCCB_Buffer[0] = 0x0C;
-		PCC_SCCB_Buffer[1] = 0x04;
+		PCC_SCCB_Buffer[1] = 0x04;//08
 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
+			
 		PCC_SCCB_Buffer[0] = 0x12;
-		PCC_SCCB_Buffer[1] = 0x00;
+		PCC_SCCB_Buffer[1] = 0x14;//14
 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
 		
 		PCC_SCCB_Buffer[0] = 0x11;
 		PCC_SCCB_Buffer[1] = 0x01;
 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
+	
 		PCC_SCCB_Buffer[0] = 0x15;
-		PCC_SCCB_Buffer[1] = 0x03;
-		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
-		PCC_SCCB_Buffer[0] = 0x40;
-		PCC_SCCB_Buffer[1] = 0xD0;
-		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
-		PCC_SCCB_Buffer[0] = 0x1E;
-		PCC_SCCB_Buffer[1] = 0x01;
-		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
-		PCC_SCCB_Buffer[0] = 0x3A;
-		PCC_SCCB_Buffer[1] = 0x0C;
-		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
-		PCC_SCCB_Buffer[0] = 0x3E;
-		PCC_SCCB_Buffer[1] = 0x19;
-		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
-		PCC_SCCB_Buffer[0] = 0x73;
-		PCC_SCCB_Buffer[1] = 0xF1;
-		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
-		PCC_SCCB_Buffer[0] = 0x17;
-		PCC_SCCB_Buffer[1] = 0x16;///
-		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-
-		PCC_SCCB_Buffer[0] = 0x32;
-		PCC_SCCB_Buffer[1] = 0x24;
+		PCC_SCCB_Buffer[1] = 0x03;//02  03
 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
 		
+		PCC_SCCB_Buffer[0] = 0x8c;
+		PCC_SCCB_Buffer[1] = 0x00;
+		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+		
+		PCC_SCCB_Buffer[0] = 0x40;
+		PCC_SCCB_Buffer[1] = 0xd0;
+		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+		
+		PCC_SCCB_Buffer[0] = 0x1E;
+		PCC_SCCB_Buffer[1] = 0x01;//31  01
+		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+		
+		PCC_SCCB_Buffer[0] = 0x3A;
+		PCC_SCCB_Buffer[1] = 0x0D;
+		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+		
+		PCC_SCCB_Buffer[0] = 0x3E;
+		PCC_SCCB_Buffer[1] = 0x19; //19
+		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+		
+		PCC_SCCB_Buffer[0] = 0x73;
+		PCC_SCCB_Buffer[1] = 0xF9;//f1  f9
+		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+	
 		PCC_SCCB_Buffer[0] = 0xa2;
 		PCC_SCCB_Buffer[1] = 0x02;
+		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+			
+		PCC_SCCB_Buffer[0] = 0x17;
+		PCC_SCCB_Buffer[1] = 0x16;//0x0b  16
+		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+		
+		PCC_SCCB_Buffer[0] = 0x70;
+		PCC_SCCB_Buffer[1] = 0x3a;
 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
 		
 		PCC_SCCB_Buffer[0] = 0x71;
 		PCC_SCCB_Buffer[1] = 0x35;
 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
 		
-		
-		PCC_SCCB_Buffer[0] = 0x70;
-		PCC_SCCB_Buffer[1] = 0x3a;
-		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
-		
 		PCC_SCCB_Buffer[0] = 0x72;
 		PCC_SCCB_Buffer[1] = 0x11;
 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+		
+		PCC_SCCB_Buffer[0] = 0x32;
+		PCC_SCCB_Buffer[1] = 0x24;//80  24
+		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+// 		
+	//////////////////////////////////////////////////////////////////////////
+// 		PCC_SCCB_Buffer[0] = 0x0C;
+// 		PCC_SCCB_Buffer[1] = 0x04;
+// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+// 
+// 		PCC_SCCB_Buffer[0] = 0x12;
+// 		PCC_SCCB_Buffer[1] = 0x00;
+// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+// 		
+// 		PCC_SCCB_Buffer[0] = 0x11;
+// 		PCC_SCCB_Buffer[1] = 0x01;
+// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+// 
+// 		PCC_SCCB_Buffer[0] = 0x15;
+// 		PCC_SCCB_Buffer[1] = 0x03;
+// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+// 
+// // 		PCC_SCCB_Buffer[0] = 0x40;
+// // 		PCC_SCCB_Buffer[1] = 0xD0;
+// // 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+// 
+// 		PCC_SCCB_Buffer[0] = 0x1E;
+// 		PCC_SCCB_Buffer[1] = 0x01;
+// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+// 
+// 		PCC_SCCB_Buffer[0] = 0x3A;
+// 		PCC_SCCB_Buffer[1] = 0x0C;
+// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+// 
+// 		PCC_SCCB_Buffer[0] = 0x3E;
+// 		PCC_SCCB_Buffer[1] = 0x19;
+// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+// 
+// 		PCC_SCCB_Buffer[0] = 0x73;
+// 		PCC_SCCB_Buffer[1] = 0xF1;
+// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+// 
+// 		PCC_SCCB_Buffer[0] = 0x17;
+// 		PCC_SCCB_Buffer[1] = 0x16;///
+// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+// 		
+// 		
+// 		
+// 		PCC_SCCB_Buffer[0] = 0x03;
+// 		PCC_SCCB_Buffer[1] = 0x0a;///
+// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+// 		
+// 
+// 		PCC_SCCB_Buffer[0] = 0x32;
+// 		PCC_SCCB_Buffer[1] = 0x24;
+// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+// 		
+// 		PCC_SCCB_Buffer[0] = 0xa2;
+// 		PCC_SCCB_Buffer[1] = 0x02;
+// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+// 		
+// 		PCC_SCCB_Buffer[0] = 0x71;
+// 		PCC_SCCB_Buffer[1] = 0x35;
+// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+// 		
+// 		
+// 		PCC_SCCB_Buffer[0] = 0x70;
+// 		PCC_SCCB_Buffer[1] = 0x3a;
+// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
+// 		
+// 		PCC_SCCB_Buffer[0] = 0x72;
+// 		PCC_SCCB_Buffer[1] = 0x11;
+// 		io_write(&PCC_SCCB.io, PCC_SCCB_Buffer, 2);
 
 	
 }
@@ -252,7 +246,6 @@ int main(void)
 	atmel_start_init();
 	gpio_set_pin_level(PCC_RESET, false);
 	usart_async_enable(&EDBG_COM);
-	
  	//pwm_set_parameters(&PWM_0,22,11);
 	pwm_set_parameters(&PWM_0,4,2);
 	 
@@ -278,8 +271,7 @@ int main(void)
 		for(Index = 0; Index < 153600; Index++)		
 		{
 			while(_usart_async_is_byte_sent(&EDBG_COM.device) == 0);
-			_usart_async_write_byte(&EDBG_COM.device, CAMERA_OV7670_frame_buf.byte[Index]);
-			
+			_usart_async_write_byte(&EDBG_COM.device, CAMERA_OV7670_frame_buf.byte[Index]);			
 			delay_us(10);
 		}
 		
